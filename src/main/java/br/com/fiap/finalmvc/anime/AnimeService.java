@@ -1,4 +1,4 @@
-package br.com.fiap.finalmvc.task;
+package br.com.fiap.finalmvc.anime;
 
 import java.util.List;
 
@@ -6,24 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TaskService {
+public class AnimeService {
 
     @Autowired
-    TaskRepository repository;
+    AnimeRepository repository;
 
-    public List<Task> findAll(){
+    public List<Anime> findAll(){
         return repository.findAll();
     }
 
     public boolean delete(Long id) {
-        var task = repository.findById(id);
-        if(task.isEmpty()) return false;
+        var anime = repository.findById(id);
+        if(anime.isEmpty()) return false;
         repository.deleteById(id);
         return true;
     }
 
-    public void save(Task task) {
-        repository.save(task);
+    public void save(Anime anime) {
+        repository.save(anime);
     }
     
 }

@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Final MVC</title>
+    <title>YourJapan</title>
 </head>
 
 <body class="grey lighten-2">
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Final MVC</a>
+            <a href="#" class="brand-logo">YourJapan</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="/task">Pendentes</a></li>
-                <li><a href="#">Concluídas</a></li>
-                <li><a href="#">Usuários</a></li>
+                <li class="active"><a href="/anime">Em andamento</a></li>
+                <li><a href="#">Assistidos/Lidos</a></li>
+                <li><a href="#">Perfil</a></li>
             </ul>
         </div>
     </nav>
@@ -24,21 +24,19 @@
         <div class="card-panel teal" th:if="${success}" th:text="${success}"></div>
         <div class="card-panel red white-text" th:if="${error}" th:text="${error}"></div>
 
-        <h2>Tarefas Pendentes</h2>
+        <h2>Animes/Mangás em andamento</h2>
 
         <div class="row">
-            <div class="col s12 m6 l4" th:each="task : ${tasks}">
+            <div class="col s12 m6 l4" th:each="anime : ${animes}">
                 <div class="card">
                     <div class="card-content">
-                        <div class="progress">
-                            <div class="determinate" th:style="${'width:' + task.status + '%'}"></div>
-                        </div>
-                        <span class="card-title" th:text="${task.title}"></span>
-                        <p th:text="${task.description}"></p>
-                        <span data-badge-caption="pontos" class="badge blue white-text" th:text="${task.score}"></span>
+                        <span class="card-title" th:text="${anime.title}"></span>
+                        <p>Gêneros presentes: <span th:text="${anime.description}"></span></p>
+                        <p>Quantidade de episódios/capítulos: <span th:text="${anime.quantity}"></span></p>
+                        <p>Onde você parou: <span th:text="${anime.status}"></span></p>
                     </div>
                     <div class="card-action">
-                        <a th:href="${'/task/delete/' + task.id}" class="btn red">
+                        <a th:href="${'/anime/delete/' + anime.id}" class="btn red">
                             <i class="material-icons">delete</i>
                         </a>
                     </div>
@@ -48,7 +46,7 @@
     </main>
 
     <div class="fixed-action-btn">
-        <a href="/task/new" class="btn-floating btn-large red">
+        <a href="/anime/new" class="btn-floating btn-large red">
             <i class="large material-icons">add</i>
         </a>
     </div>

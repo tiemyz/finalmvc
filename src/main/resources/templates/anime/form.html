@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title>Final MVC</title>
+    <title>YourJapan</title>
 </head>
 
 <body class="grey lighten-2">
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Final MVC</a>
+            <a href="#" class="brand-logo">YourJapan</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="/task">Pendentes</a></li>
+                <li class="active"><a href="/anime">Pendentes</a></li>
                 <li><a href="#">Concluídas</a></li>
                 <li><a href="#">Usuários</a></li>
             </ul>
@@ -23,31 +23,38 @@
 
     <main class="container">
 
-        <h2>Cadastrar Tarefa</h2>
+        <h2>Cadastrar anime/mangá</h2>
 
         <div class="card">
-            <form th:action="${'/task'}" method="post" th:object="${task}">                <div class="card-content">
+            <form th:action="${'/anime'}" method="post" th:object="${anime}">                <div class="card-content">
                     <div class="input-field">
                         <input type="text" th:field="*{title}" th:classappend="${#fields.hasErrors('title')} ? invalid">
-                        <label for="title">Título</label>
+                        <label for="title">Título do anime/mangá</label>
                         <span class="helper-text red-text" th:errors="*{title}"></span>
                     </div>
 
                     <div class="input-field">
                         <textarea class="materialize-textarea" th:field="*{description}" th:classappend="${#fields.hasErrors('description')} ? invalid"></textarea>
-                        <label for="description">Descrição</label>
+                        <label for="description">Descrição da obra</label>
                         <span class="helper-text red-text" th:errors="*{description}"></span>
                     </div>
 
-                    <label for="score">Pontos</label>
-                    <p class="range-field">
-                        <input type="range"  min="1" max="100" th:field="*{score}" />
-                    </p>
-                    <span class="helper-text red-text" th:errors="*{score}"></span>
+                    <div class="input-field">
+                        <input type="number" th:field="*{quantity}" th:classappend="${#fields.hasErrors('quantity')} ? invalid">
+                        <label for="quantity">Quantidade de episódios/capítulos</label>
+                        <span class="helper-text red-text" th:errors="*{quantity}"></span>
+                    </div>
+
+                    
+                    <div class="input-field">
+                        <input type="number" th:field="*{status}" th:classappend="${#fields.hasErrors('status')} ? invalid">
+                        <label for="status">Onde você parou?</label>
+                        <span class="helper-text red-text" th:errors="*{status}"></span>
+                    </div>
 
                 </div>
                 <div class="card-action right-align">
-                    <a href="/task">cancelar</a>
+                    <a href="/anime">cancelar</a>
                     <button class="btn">cadastrar</button>
                 </div>
             </form>

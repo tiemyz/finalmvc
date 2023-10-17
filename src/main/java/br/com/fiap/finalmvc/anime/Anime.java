@@ -1,4 +1,4 @@
-package br.com.fiap.finalmvc.task;
+package br.com.fiap.finalmvc.anime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Task {
+public class Anime {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -21,12 +21,12 @@ public class Task {
     @NotBlank
     String title;
 
-    @Size(min = 10, message = "a descrição deve ter pelo menos 10 caracteres")
+    @Size(min = 10, max = 500, message = "a descrição deve ter pelo menos 10 caracteres")
     String description;
 
-    @Positive
-    Integer score;
+    @Min(0) @Max(500)
+    Integer quantity;
 
-    @Min(0) @Max(100)
+    @Min(0) @Max(500)
     Integer status;
 }

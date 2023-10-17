@@ -1,4 +1,4 @@
-package br.com.fiap.finalmvc.task;
+package br.com.fiap.finalmvc.anime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,39 +12,39 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/task")
-public class TaskController {
+@RequestMapping("/anime")
+public class AnimeController {
 
     @Autowired
-    TaskService service;
+    AnimeService service;
 
     @GetMapping
     public String index(Model model){
-        model.addAttribute("tasks", service.findAll());
-        return "task/index";
+        model.addAttribute("animes", service.findAll());
+        return "anime/index";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirect){
         if(service.delete(id)){
-            redirect.addFlashAttribute("success", "Tarefa apagada com sucesso");
+            redirect.addFlashAttribute("success", "Anime/Mangá apagado com sucesso!");
         }else{
-            redirect.addFlashAttribute("error", "Tarefa não foi encontrada");
+            redirect.addFlashAttribute("error", "Anime/Mangá não foi encontrado...");
         }
-        return "redirect:/task";
+        return "redirect:/anime";
     }
 
     @GetMapping("new")
-    public String form(Task task){
-        return "task/form";
+    public String form(Anime anime){
+        return "anime/form";
     }
 
     @PostMapping
-    public String create(@Valid Task task, BindingResult result, RedirectAttributes redirect){
-        if (result.hasErrors()) return "task/form";
-        service.save(task);
-        redirect.addFlashAttribute("success", "Tarefa cadastrada com sucesso");
-        return "redirect:/task";
+    public String create(@Valid Anime anime, BindingResult result, RedirectAttributes redirect){
+        if (result.hasErrors()) return "anime/form";
+        service.save(anime);
+        redirect.addFlashAttribute("success", "Anime/Mangá cadastrado com sucesso!");
+        return "redirect:/anime";
     }
     
 }
