@@ -21,5 +21,9 @@ public class TaskService {
         repository.deleteById(id);
         return true;
     }
+
+    public void save(Task task) {
+        repository.save(task);
+    }
     
 }
