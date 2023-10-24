@@ -21,7 +21,7 @@ public class Anime {
     @NotBlank
     String title;
 
-    @Size(min = 10, max = 500, message = "a descrição deve ter pelo menos 10 caracteres")
+    @Size(min = 10, max = 500, message = "{anime.description.size}")
     String description;
 
     @Min(0) @Max(500)

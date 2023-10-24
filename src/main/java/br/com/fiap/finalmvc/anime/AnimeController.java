@@ -1,6 +1,8 @@
 package br.com.fiap.finalmvc.anime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,9 @@ public class AnimeController {
     @Autowired
     AnimeService service;
 
+    @Autowired
+    MessageSource message;
+
     @GetMapping
     public String index(Model model, @AuthenticationPrincipal OAuth2User user){
         model.addAttribute("username", user.getAttribute("name"));
@@ -31,10 +36,9 @@ public class AnimeController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirect){
         if(service.delete(id)){
-            redirect.addFlashAttribute("success", "Anime/Mangá apagado com sucesso!");
+            redirect.addFlashAttribute("success", getMessage("anime.delete.success") );
         }else{
-            redirect.addFlashAttribute("error", "Anime/Mangá não foi encontrado...");
-        }
+            redirect.addFlashAttribute("error", getMessage("anime.notfound"));        }
         return "redirect:/anime";
     }
 
@@ -47,8 +51,11 @@ public class AnimeController {
     public String create(@Valid Anime anime, BindingResult result, RedirectAttributes redirect){
         if (result.hasErrors()) return "anime/form";
         service.save(anime);
-        redirect.addFlashAttribute("success", "Anime/Mangá cadastrado com sucesso!");
+        redirect.addFlashAttribute("success", getMessage("anime.create.success"));       
         return "redirect:/anime";
     }
-    
+
+    private String getMessage(String code){
+        return message.getMessage(code, null, LocaleContextHolder.getLocale());
+    }   
 }
