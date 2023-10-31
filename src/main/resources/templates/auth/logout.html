@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>YourJapan</title>
-</head>
+<head th:replace="~{_template :: head('Sair')}"></head>
+
 
 <body class="grey lighten-2">
 
@@ -16,7 +11,7 @@
         <h4>tem certeza que deseja sair dessa aplicação maravilhosa ?</h4>
 
         <form th:action="${'/logout'}" method="post">
-            <a href="/task" class="btn grey">
+            <a href="/anime" class="btn grey">
                 <i class="material-icons left">chevron_left</i>
                 cancelar
             </a>

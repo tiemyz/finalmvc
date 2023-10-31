@@ -1,13 +1,14 @@
 package br.com.fiap.finalmvc.anime;
 
+import br.com.fiap.finalmvc.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -29,4 +30,7 @@ public class Anime {
 
     @Min(0) @Max(500)
     Integer status;
+
+    @ManyToOne
+    User user;
 }

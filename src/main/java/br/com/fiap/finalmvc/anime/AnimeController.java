@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import br.com.fiap.finalmvc.user.User;
 import jakarta.validation.Valid;
 
 @Controller
@@ -26,7 +27,7 @@ public class AnimeController {
     MessageSource message;
 
     @GetMapping
-    public String index(Model model, @AuthenticationPrincipal OAuth2User user){
+    public String index(Model model, @AuthenticationPrincipal OAuth2User user) {
         model.addAttribute("username", user.getAttribute("name"));
         model.addAttribute("avatar_url", user.getAttribute("avatar_url"));
         model.addAttribute("animes", service.findAll());
@@ -34,22 +35,25 @@ public class AnimeController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id, RedirectAttributes redirect){
-        if(service.delete(id)){
-            redirect.addFlashAttribute("success", getMessage("anime.delete.success") );
-        }else{
+    public String delete(@PathVariable Long id, RedirectAttributes redirect) {
+        if (service.delete(id)) {
+            redirect.addFlashAttribute("success", getMessage("anime.delete.success"));
+        } else {
             redirect.addFlashAttribute("error", getMessage("anime.notfound"));        }
         return "redirect:/anime";
     }
 
     @GetMapping("new")
-    public String form(Anime anime){
+    public String form(Anime anime, Model model, @AuthenticationPrincipal OAuth2User user) {
+        model.addAttribute("username", user.getAttribute("name"));
+        model.addAttribute("avatar_url", user.getAttribute("avatar_url"));
         return "anime/form";
     }
 
     @PostMapping
-    public String create(@Valid Anime anime, BindingResult result, RedirectAttributes redirect){
-        if (result.hasErrors()) return "anime/form";
+    public String create(@Valid Anime anime, BindingResult result, RedirectAttributes redirect) {
+        if (result.hasErrors())
+            return "anime/form";
         service.save(anime);
         redirect.addFlashAttribute("success", getMessage("anime.create.success"));       
         return "redirect:/anime";
@@ -58,4 +62,17 @@ public class AnimeController {
     private String getMessage(String code){
         return message.getMessage(code, null, LocaleContextHolder.getLocale());
     }   
+
+
+    @GetMapping("catch/{id}")
+    public String catchAnime(@PathVariable Long id, @AuthenticationPrincipal OAuth2User user) {
+        service.catchAnime(id, User.convert(user));
+        return "redirect:/anime";
+    }
+
+    @GetMapping("drop/{id}")
+    public String dropAnime(@PathVariable Long id, @AuthenticationPrincipal OAuth2User user) {
+        service.dropAnime(id, User.convert(user));
+        return "redirect:/anime";
+    }
 }
